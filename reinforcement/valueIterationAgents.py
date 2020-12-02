@@ -123,14 +123,14 @@ class ValueIterationAgent(ValueEstimationAgent):
 
         # Get maximum action
         q = -1 * float("inf")
-        a = None
+        action = None
 
-        for action in actions:
+        for a in actions:
             if self.computeQValueFromValues(state, action) > q:
                 q = self.computeQValueFromValues(state, action)
-                a = action
+                action = a
 
-        return a
+        return action
 
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
@@ -177,7 +177,7 @@ class AsynchronousValueIterationAgent(ValueIterationAgent):
         numStates = len(states)
 
         for i in range(self.iterations):
-            # each iteration is a single state update for each state
+            # each iteration is a single state, update for each state
             state = states[i % numStates]
 
             # ignore terminal states
