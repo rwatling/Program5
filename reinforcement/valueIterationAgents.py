@@ -66,7 +66,6 @@ class ValueIterationAgent(ValueEstimationAgent):
         """
         "*** YOUR CODE HERE ***"
 
-        # For the number of look ahead steps
         for i in range(self.iterations):
             updated = self.values.copy()
 
@@ -174,7 +173,18 @@ class AsynchronousValueIterationAgent(ValueIterationAgent):
         """
         Question 4
         """
-        "*** YOUR CODE HERE ***"
+        states = self.mdp.getStates()
+        numStates = len(states)
+
+        for i in range(self.iterations):
+            # each iteration is a single state update for each state
+            state = states[i % numStates]
+
+            # ignore terminal states
+            if not self.mdp.isTerminal(state):
+                action = self.computeActionFromValues(state)
+                q = self.computeQValueFromValues(state, action)
+                self.values[state] = q
 
 
 
