@@ -122,12 +122,12 @@ class ValueIterationAgent(ValueEstimationAgent):
             return None
 
         # Get maximum action
-        q = -1 * float("inf")
+        q = -1.0 * float("inf")
         action = None
 
         for a in actions:
-            if self.computeQValueFromValues(state, action) > q:
-                q = self.computeQValueFromValues(state, action)
+            if self.computeQValueFromValues(state, a) > q:
+                q = self.computeQValueFromValues(state, a)
                 action = a
 
         return action
